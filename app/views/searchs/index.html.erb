@@ -1,0 +1,20 @@
+<%= form_with url: searchs_index_path, scope: :date,method: 'get', local: true do |f|%>
+    
+    <strong>From date</strong> <%= f.date_field :from_date %> <strong>To date</strong> <%= f.date_field :to_date %> <%= f.submit %>
+<% end %>
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Phone</th>
+    <th>Address</th>
+  </thead>
+  <tbody>
+    <% @searchs.each do |search| %>
+      <tr>
+        <td><%= search.name %></td>
+        <td><%= search.phone %></td>
+        <td><%= search.address %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

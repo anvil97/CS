@@ -1,0 +1,48 @@
+<% if !@order_item.nil? && @order_item.errors.any? %>
+<div class="alert alert-danger">
+  <ul>
+    <% @order_item.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+<% if @order_items.nil? %>
+<p class="text-center">
+  There are no items in your shopping cart.  Please <%= link_to "go back", root_path %> and add some items to your cart.
+</p>
+<% else %>
+
+<%= form_with scope: :cart_update,url: update_cart_cart_path, method: "post" do |f|%>
+<% @order_items[0].each_with_index do |order_item, index| %>
+<div class="well">
+  <div class="row">
+    <div class="col-xs-8">
+      <h4><%= Product.find(order_item[1]['product_id']).name %></h4>
+    </div>
+    <div class="col-xs-4">
+      <h4 class="text-right">Unit Price: <span style="color: green"><%= number_to_currency Product.find(order_item[1]['product_id']).price %></span></h4>
+      <div class="row">
+        <div class="col-xs-4">
+          <%= f.number_field "[#{index}]quantity", value: order_item[1]['quantity'], class: "form-control", min: 1 %>
+          <%= f.hidden_field "[#{index}]product_id", value: order_item[1]['product_id']%>
+        </div>
+        <div class="col-xs-8 text-right">
+          <div class="btn-group">
+            <%= link_to "Delete",destroy_cart_cart_path(order_item[1]), method: :post, class: "btn btn-danger"  %>
+          </div>
+        </div>
+      </div>
+      <h4 class="text-right">Total Price: <span style="color: green">
+        <%= number_to_currency Product.find(order_item[1]['product_id']).price*order_item[1]['quantity'].to_i%>
+      </span>
+    </h4>
+  </div>
+</div>
+</div>
+<%end%>
+<%= f.submit "Update Quantity", class: "btn btn-primary" %>
+<%end%>
+
+<% end %>
+

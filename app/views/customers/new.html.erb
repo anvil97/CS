@@ -1,0 +1,9 @@
+<% if session[:cart].nil? %>
+<strong>Hiện tại giỏ hàng của bạn chưa có sản phẩm nào.</strong>
+<%else%>
+<h1>New Customer</h1>
+
+<%= render 'form', customer: @customer %>
+
+<%= link_to 'Back', customers_path %>
+<%end%>

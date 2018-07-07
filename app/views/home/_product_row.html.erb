@@ -1,0 +1,33 @@
+
+  <div></div>
+  <div class="col-sm-12 col-md-3">
+
+    <div class="row">
+      <div class="col-sm-12 col-md-12">
+        <div class="thumbnail" style="background-color: #FFFAFA">
+          <div class="caption">
+            <!-- <div style="width: "> -->
+            <%= image_tag(product.image, width: "100px", height: "110px")%>
+            <!-- </div> -->
+            <h3><%= product.name %></h3>
+            <%= form_for order_item, remote: true do |f| %>
+            <div class="col-sm-6 col-md-6">
+              <span><%= number_to_currency product.price %></span>
+            </div>
+            <div class="col-sm-6 col-md-6">
+              <%= f.number_field :quantity, value: 1, class: "form-control", min: 1 %>
+              <div class="input-group-btn">
+                <%= f.hidden_field :product_id, value: product.id %>
+              </div>
+            </div> 
+            <%= f.submit "Add to Cart", class: "btn btn-primary" %>
+
+            <% end %>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+

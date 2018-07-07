@@ -1,0 +1,7 @@
+<% if session[:cart].nil? %>
+  <%= link_to "0 Items(quantity: 0 ) in Cart ( #{number_to_currency 0} )", cart_path, class: "btn btn-link" %>
+<%else%>
+  <%= link_to "#{session[:cart][0].size} Items(quantity:#{session[:total_quantity]} ) in Cart ( #{number_to_currency session[:total_money]} )", cart_path, class: "btn btn-link" %>
+ 
+<%end%>
+
